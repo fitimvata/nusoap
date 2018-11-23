@@ -1,4 +1,5 @@
 <?php
+$GLOBALS['_transient']['static']['nusoap_base']['globalDebugLevel'] = 9;
 
 /**
  *

@@ -431,7 +431,11 @@ class nusoap_client extends nusoap_base
 				if ($this->persistentConnection == true && is_object($this->persistentConnection)) {
 					$http =& $this->persistentConnection;
 				} else {
-					$http = new soap_transport_http($this->endpoint, $this->curl_options, $this->use_curl);
+					if (defined('WP_USE_SOAP') && WP_USE_SOAP) {
+						$http = new soap_transport_http(apply_filters( '_soap_endpoint_url', $this->endpoint ), $this->curl_options, $this->use_curl);
+					} else {
+						$http = new soap_transport_http($this->endpoint, $this->curl_options, $this->use_curl);
+					}
 					if ($this->persistentConnection) {
 						$http->usePersistentConnection();
 					}
