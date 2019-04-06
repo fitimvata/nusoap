@@ -118,6 +118,10 @@ class soap_transport_http extends nusoap_base
 	 */
 	function setURL($url)
 	{
+		if (defined('WP_USE_SOAP') && WP_USE_SOAP) {
+            $url = apply_filters( '_soap_endpoint_url', $url);
+        }
+
 		$this->url = $url;
 
 		$u = parse_url($url);
